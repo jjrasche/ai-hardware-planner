@@ -101,7 +101,7 @@ const MODELS = [
 
     defaultWeightBytes: 1,   // INT8 default for larger model
     defaultKvBytes: 1,
-    defaultKVBudget: 6,
+    defaultKVBudget: 3,
     defaultAvgTokens: 100000,
     defaultTargetTokensPerSec: 20,
     enabled: true,
