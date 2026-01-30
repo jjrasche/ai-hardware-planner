@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Hardware Planner</title>
+
+  <!-- External Dependencies -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+
+  <!-- App Styles -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- Left Panel: Model Table -->
+  <div class="left-panel">
+    <div class="header">
+      <h1>AI Hardware Planner</h1>
+      <div class="controls">
+        <label>GPU Hardware:</label>
+        <select id="hardwareSelect"></select>
+      </div>
+    </div>
+
+
+    <table id="modelTable">
+      <thead>
+        <tr>
+          <th>Enable</th>
+          <th>Model</th>
+          <th>Type</th>
+          <th>Weight Precision</th>
+          <th>Weights (GB)</th>
+          <th>KV Precision</th>
+          <th>KV/Token (bytes)</th>
+          <th>KV Budget (GB)</th>
+          <th>Avg Tokens/Req</th>
+          <th>Max Concurrent</th>
+          <th>Target tok/s</th>
+        </tr>
+      </thead>
+      <tbody id="modelTableBody">
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Right Panel: Charts / Error -->
+  <div class="right-panel" id="rightPanel">
+    <!-- Error Message (hidden by default) -->
+    <div id="errorMessage" style="display: none;">
+      <div class="icon">&#9888;</div>
+      <h2>Over Capacity</h2>
+      <p>
+        You've exceeded your <strong><span id="vramCapacity">96</span>GB of VRAM</strong><br>
+        by <strong id="deficitAmount">0 GB</strong>
+      </p>
+      <p class="hint">
+        Disable models or reduce KV budgets to fit within capacity
+      </p>
+    </div>
+
+    <!-- Charts Container -->
+    <div id="chartsContainer">
+      <!-- VRAM Section -->
+      <div class="chart-section">
+        <div class="explanation">
+          <h3>GPU Memory</h3>
+          <p>This shows how much GPU memory your models use. Weights (the model itself) are always in memory. KV cache (conversation history) grows as requests run longer. If the total exceeds your GPU's VRAM, requests will queue or fail.</p>
+        </div>
+        <div class="chart-container">
+          <h2 id="vramChartHeader">VRAM Utilization</h2>
+          <canvas id="vramChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Bandwidth Section -->
+      <div class="chart-section">
+        <div class="explanation">
+          <h3>Memory Bandwidth</h3>
+          <p>This shows how fast data flows from memory while generating tokens. Higher utilization means slower responses. If bandwidth is saturated, your GPU can't keep up with your target throughput, and requests will be slower.</p>
+        </div>
+        <div class="chart-container">
+          <h2 id="bandwidthChartHeader">Bandwidth Utilization</h2>
+          <canvas id="bandwidthChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Data Files -->
+  <script src="data/hardware.js"></script>
+  <script src="data/models.js"></script>
+
+  <!-- Application Logic -->
+  <script src="js/app.js"></script>
+</body>
+</html>
