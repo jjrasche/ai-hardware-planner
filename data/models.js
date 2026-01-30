@@ -41,8 +41,8 @@ const MODELS = [
     defaultWeightBytes: 2,
     defaultKvBytes: 2,
     defaultKVBudget: 8,               // GB allocated for KV cache
-    defaultAvgTokens: 9700,
-    defaultTargetTokensPerSec: 50,
+    defaultAvgTokens: 6000,
+    defaultTargetTokensPerSec: 40,
     enabled: true,
 
     // Benchmarks by weight precision (fill in later)
@@ -72,8 +72,8 @@ const MODELS = [
     defaultWeightBytes: 2,
     defaultKvBytes: 2,
     defaultKVBudget: 3,
-    defaultAvgTokens: 5500,
-    defaultTargetTokensPerSec: 40,
+    defaultAvgTokens: 4000,
+    defaultTargetTokensPerSec: 30,
     enabled: true,
 
     benchmarks: {
@@ -100,10 +100,10 @@ const MODELS = [
     kvBytesOptions: [1, 2],
 
     defaultWeightBytes: 1,   // INT8 default for larger model
-    defaultKvBytes: 2,
-    defaultKVBudget: 3,
-    defaultAvgTokens: 50000,
-    defaultTargetTokensPerSec: 25,
+    defaultKvBytes: 1,
+    defaultKVBudget: 6,
+    defaultAvgTokens: 100000,
+    defaultTargetTokensPerSec: 20,
     enabled: true,
 
     benchmarks: {
@@ -134,7 +134,7 @@ const MODELS = [
     defaultKVBudget: 0,
     defaultAvgTokens: 0,
     defaultTargetTokensPerSec: 0,
-    enabled: true,
+    enabled: false,
 
     benchmarks: {
       2:   { mteb_avg: null },
@@ -164,7 +164,7 @@ const MODELS = [
     defaultKVBudget: 0,
     defaultAvgTokens: 0,
     defaultTargetTokensPerSec: 0,
-    enabled: true,
+    enabled: false,
 
     benchmarks: {
       2:   { mteb_rerank: null },
@@ -194,7 +194,7 @@ const MODELS = [
     defaultKVBudget: 0,
     defaultAvgTokens: 256,
     defaultTargetTokensPerSec: 0,
-    enabled: true,
+    enabled: false,
 
     benchmarks: {
       4:   { glue_avg: null },
