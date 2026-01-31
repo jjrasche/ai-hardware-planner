@@ -94,10 +94,12 @@ function populateHardwareSelect() {
 
 // Calculation functions
 function calculateBandwidth(model) {
-  // Bandwidth (GB/s) = Weights (GB) * Target tokens/sec
-  // During decode, we read all weights for each token
-  const weightsGB = calculateWeightsGB(model);
-  return weightsGB * model.defaultTargetTokensPerSec;
+  // Bandwidth (GB/s) = Active Weights (GB) * Target tokens/sec
+  // During decode, we read active weights for each token
+  // For MoE models, only activeParams are read per token
+  const activeParams = model.activeParams || model.baseParams;
+  const activeWeightsGB = (activeParams * model.defaultWeightBytes) / 1e9;
+  return activeWeightsGB * model.defaultTargetTokensPerSec;
 }
 
 function calculateBandwidthPercent(model) {
